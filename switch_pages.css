@@ -1,0 +1,25 @@
+#intro.hidden {
+  top: -100%;
+
+}
+
+#iconList.hidden {
+  bottom: -500px;
+}
+
+#background.as_banner {
+  object-position: center;
+  height: 53%;
+}
+
+#scrollAnimation.hidden {
+  bottom: -50%;
+}
+
+#innerPage.show {
+  display: flex;
+}
+
+#innerPage.fadeIn {
+  opacity: 1;
+}

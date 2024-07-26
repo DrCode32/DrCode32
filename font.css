@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'PingFang';
+  src: url('fonts/pingfang-woff2/PingFang\ Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'PingFang-Light';
+  src: url('fonts/pingfang-woff2/PingFang\ Light.woff2') format('woff2');
+}

@@ -1,0 +1,188 @@
+@import url('font.css');
+@import url('scroll_down.css');
+@import url('switch_pages.css');
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+
+  font-family: 'PingFang', 'Google Sans', sans-serif;
+  background-color: #202124;
+  color: #ebebeb;
+}
+
+h1, h2, h3, h4 {
+  font-weight: lighter;
+}
+
+h1, h2, h3, h4, p, a {
+  text-align: center;
+}
+
+video, img {
+  pointer-events: none;
+}
+
+body, #innerPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#background {
+  position: fixed;
+
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+
+  filter: blur(20px);
+  object-fit: cover;
+  transition: height ease 3s, width ease 3s, object-position ease 3s;
+}
+
+#background.playing {
+  animation: fadeInAnimation ease 2s;
+  filter: blur(0);
+}
+
+#intro {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+
+  top: 0;
+  height: 2.8in;
+  width: 2.5in;
+  padding: 40px;
+
+  background-color: #20212461;
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  border-radius: 40px;
+
+  transition: top ease 3s;
+}
+
+@media screen and (min-width: 5in) {
+  #intro {
+    height: 2.6in;
+    width: 3.2in;
+  }
+}
+
+#intro > * {
+  margin: 0 0 20px 0;
+}
+
+#innerPage {
+  position: fixed;
+  display: none;
+  flex-direction: column;
+
+  opacity: 0;
+  bottom: 0;
+  height: 47%;
+  width: 100%;
+
+  transition: opacity ease 1s;
+}
+
+#typeBoxContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  height: calc(100% - 60px);
+  width: 100%;
+}
+
+#typeBox {
+  max-height: 100%;
+  width: 100%;
+  padding: 25px;
+
+  box-sizing: border-box;
+}
+
+#typeBox > .blinker {
+  position: absolute;
+}
+
+#bottomBar {
+  width: 100%;
+  background-color: #292c2e;
+}
+
+#bottomBar > * {
+  display: block;
+
+  width: 100%;
+  margin: 5px 0;
+
+  text-align: center;
+}
+
+#bottomBar > * {
+  text-decoration: none;
+  color: gray;
+}
+
+#scrollAnimation {
+  position: absolute;
+
+  bottom: 10px;
+  padding: 15px;
+  border-radius: 20px;
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  transform: scale(70%);
+
+  transition: bottom ease 3s;
+}
+
+#iconList {
+  position: absolute;
+  display: flex;
+  align-items: center;
+
+  height: 35px;
+  bottom: 40px;
+  margin: 0;
+
+  transition: bottom ease 3.5s;
+}
+
+#iconList > * {
+  display: inline-block;
+
+  width: 35px;
+  margin: 0 7px;
+
+  opacity: 50%;
+  filter: invert(100%);
+  object-fit: contain;
+}
+
+.avator {
+  height: 100px;
+  width: 100px;
+
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    filter: blur(20px);
+  }
+  100% {
+    filter: blur(0);
+  }
+}
