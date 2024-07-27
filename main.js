@@ -10,7 +10,7 @@ function sleep(ms) {
 }
 
 async function startTyping() {
-  const script    = 'می‌دونید پشه‌ها صبح‌ها کجا می‌خوابن؟ \0\0\0\0\n\nنمی‌دونم...\0\0\0\0\0\0\n\nشاید تو خونشون',
+  const script    = 'What do you call a fake noodle? \0\0\0\0\0\n\n An impasta!',
         textArea  = typebox.querySelector('.textArea'),
         blinker   = typebox.querySelector('.blinker');
 
