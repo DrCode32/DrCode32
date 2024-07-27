@@ -10,13 +10,13 @@ function sleep(ms) {
 }
 
 async function startTyping() {
-  const script    = 'What do you call a fake noodle? \0\0\0\0\0\n\n An impasta!',
+  const script    = 'What do you call a fake noodle? \n\n An impasta!',
         textArea  = typebox.querySelector('.textArea'),
         blinker   = typebox.querySelector('.blinker');
 
   const interval = setInterval(() => {
     if (getComputedStyle(innerPage).display === 'none') {
-      textArea.innerText    = '';
+      textArea.innerHTML    = '';
       blinker.style.opacity = '0';
       clearInterval(interval);
     }
@@ -31,13 +31,17 @@ async function startTyping() {
     }
   }, 500);
 
-  textArea.innerText = '';
+  textArea.innerHTML = '';
 
   for (const char of script) {
     if (getComputedStyle(innerPage).display === 'none') break;
 
     await sleep(150);
-    textArea.innerText += char;
+    if (char === '\n') {
+      textArea.innerHTML += '<br>';
+    } else {
+      textArea.innerHTML += char;
+    }
   }
 }
 
