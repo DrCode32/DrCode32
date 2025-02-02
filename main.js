@@ -15,7 +15,7 @@ const SCROLL_LOCK_DELAY = 2800;
 const FADE_DELAY = 500;
 const PAGE_TRANSITION_DELAY = 1200;
 const BACK_TRANSITION_DELAY = 2000;
-const JOKE_SCRIPT = 'What do you call a fake noodle? \n\n An impasta!';
+const JOKE_SCRIPT = 'What do you call a fake noodle?\n\n\nAn impasta!';
 
 // Use requestAnimationFrame for smoother animations
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
