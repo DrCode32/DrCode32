@@ -1,5 +1,4 @@
-// Cache DOM queries and use const for immutability
-const elements = {
+const els = {
   intro: document.getElementById('intro'),
   iconList: document.getElementById('iconList'),
   scrollAnimation: document.getElementById('scrollAnimation'),
@@ -8,16 +7,18 @@ const elements = {
   typebox: document.getElementById('typeBox')
 };
 
-// Constants
 const TYPING_DELAY = 150;
 const BLINK_INTERVAL = 500;
 const SCROLL_LOCK_DELAY = 2800;
 const FADE_DELAY = 500;
 const PAGE_TRANSITION_DELAY = 1200;
 const BACK_TRANSITION_DELAY = 2000;
-const JOKE_SCRIPT = 'What do you call a fake noodle?\n\n\nAn impasta!';
+const JOKE_SCRIPT = `What do you call a fake noodle?
 
-// Use requestAnimationFrame for smoother animations
+
+
+An impasta!`;
+
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 class TypeWriter {
@@ -52,7 +53,7 @@ class TypeWriter {
   }
 
   shouldStop() {
-    return getComputedStyle(elements.innerPage).display === 'none';
+    return getComputedStyle(els.innerPage).display === 'none';
   }
 
   async typeText(text) {
@@ -69,26 +70,20 @@ class TypeWriter {
 
 class PageTransitioner {
   static async goBack() {
-    elements.innerPage.classList.remove('fadeIn');
+    els.innerPage.classList.remove('fadeIn');
     await sleep(FADE_DELAY);
-    elements.background.classList.remove('as_banner');
-    
-    const elementsToShow = [elements.intro, elements.iconList, elements.scrollAnimation];
-    elementsToShow.forEach(e => e.classList.remove('hidden'));
-    
+    els.background.classList.remove('as_banner');
+    [els.intro, els.iconList, els.scrollAnimation].forEach(e => e.classList.remove('hidden'));
     await sleep(BACK_TRANSITION_DELAY);
-    elements.innerPage.classList.remove('show');
+    els.innerPage.classList.remove('show');
   }
 
   static async nextPage(typeWriter) {
-    const elementsToHide = [elements.intro, elements.iconList, elements.scrollAnimation];
-    elementsToHide.forEach(e => e.classList.add('hidden'));
-    
-    elements.background.classList.add('as_banner');
-    elements.innerPage.classList.add('show');
-    
+    [els.intro, els.iconList, els.scrollAnimation].forEach(e => e.classList.add('hidden'));
+    els.background.classList.add('as_banner');
+    els.innerPage.classList.add('show');
     await sleep(PAGE_TRANSITION_DELAY);
-    elements.innerPage.classList.add('fadeIn');
+    els.innerPage.classList.add('fadeIn');
     await typeWriter.typeText(JOKE_SCRIPT);
   }
 }
@@ -98,7 +93,7 @@ class ScrollHandler {
     this.isInnerPage = false;
     this.isLocked = false;
     this.touchStartY = 0;
-    this.typeWriter = new TypeWriter(elements.typebox);
+    this.typeWriter = new TypeWriter(els.typebox);
   }
 
   init() {
@@ -120,16 +115,12 @@ class ScrollHandler {
 
     this.isLocked = true;
     
-    if (scrollDelta > 0) {
-      if (!this.isInnerPage) {
-        await PageTransitioner.nextPage(this.typeWriter);
-        this.isInnerPage = true;
-      }
-    } else {
-      if (this.isInnerPage) {
-        await PageTransitioner.goBack();
-        this.isInnerPage = false;
-      }
+    if (scrollDelta > 0 && !this.isInnerPage) {
+      await PageTransitioner.nextPage(this.typeWriter);
+      this.isInnerPage = true;
+    } else if (scrollDelta < 0 && this.isInnerPage) {
+      await PageTransitioner.goBack();
+      this.isInnerPage = false;
     }
 
     setTimeout(() => this.isLocked = false, SCROLL_LOCK_DELAY);
@@ -146,8 +137,4 @@ class ScrollHandler {
   }
 }
 
-// Initialize on window load
-window.addEventListener('load', () => {
-  const scrollHandler = new ScrollHandler();
-  scrollHandler.init();
-});
+window.addEventListener('load', () => new ScrollHandler().init());
