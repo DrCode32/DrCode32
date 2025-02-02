@@ -13,7 +13,7 @@ const SCROLL_LOCK_DELAY = 2800;
 const FADE_DELAY = 500;
 const PAGE_TRANSITION_DELAY = 1200;
 const BACK_TRANSITION_DELAY = 2000;
-const JOKE_SCRIPT = 'What do you call a fake noodle? \n\n An impasta!';
+const JOKE_SCRIPT = 'What do you call a fake noodle?\nAn impasta!\n';
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 class TypeWriter {
@@ -35,10 +35,8 @@ class TypeWriter {
   }
 
   stopBlinker() {
-    if (this.blinkInterval) {
-      clearInterval(this.blinkInterval);
-      this.blinkInterval = null;
-    }
+    clearInterval(this.blinkInterval);
+    this.blinkInterval = null;
   }
 
   reset() {
@@ -54,7 +52,6 @@ class TypeWriter {
   async typeText(text) {
     this.reset();
     this.startBlinker();
-
     for (const char of text) {
       if (this.shouldStop()) break;
       await sleep(TYPING_DELAY);
@@ -68,21 +65,15 @@ class PageTransitioner {
     elements.innerPage.classList.remove('fadeIn');
     await sleep(FADE_DELAY);
     elements.background.classList.remove('as_banner');
-    
-    const elementsToShow = [elements.intro, elements.iconList, elements.scrollAnimation];
-    elementsToShow.forEach(e => e.classList.remove('hidden'));
-    
+    [elements.intro, elements.iconList, elements.scrollAnimation].forEach(e => e.classList.remove('hidden'));
     await sleep(BACK_TRANSITION_DELAY);
     elements.innerPage.classList.remove('show');
   }
 
   static async nextPage(typeWriter) {
-    const elementsToHide = [elements.intro, elements.iconList, elements.scrollAnimation];
-    elementsToHide.forEach(e => e.classList.add('hidden'));
-    
+    [elements.intro, elements.iconList, elements.scrollAnimation].forEach(e => e.classList.add('hidden'));
     elements.background.classList.add('as_banner');
     elements.innerPage.classList.add('show');
-    
     await sleep(PAGE_TRANSITION_DELAY);
     elements.innerPage.classList.add('fadeIn');
     await typeWriter.typeText(JOKE_SCRIPT);
@@ -110,25 +101,17 @@ class ScrollHandler {
   async handleScroll(e) {
     if (this.isLocked) return;
     e.preventDefault();
-
     const scrollDelta = this.getScrollDelta(e);
     if (!scrollDelta) return;
-
     this.isLocked = true;
-    
-    if (scrollDelta > 0) {
-      if (!this.isInnerPage) {
-        await PageTransitioner.nextPage(this.typeWriter);
-        this.isInnerPage = true;
-      }
-    } else {
-      if (this.isInnerPage) {
-        await PageTransitioner.goBack();
-        this.isInnerPage = false;
-      }
+    if (scrollDelta > 0 && !this.isInnerPage) {
+      await PageTransitioner.nextPage(this.typeWriter);
+      this.isInnerPage = true;
+    } else if (scrollDelta < 0 && this.isInnerPage) {
+      await PageTransitioner.goBack();
+      this.isInnerPage = false;
     }
-
-    setTimeout(() => this.isLocked = false, SCROLL_LOCK_DELAY);
+    setTimeout(() => (this.isLocked = false), SCROLL_LOCK_DELAY);
   }
 
   getScrollDelta(e) {
@@ -142,7 +125,4 @@ class ScrollHandler {
   }
 }
 
-window.addEventListener('load', () => {
-  const scrollHandler = new ScrollHandler();
-  scrollHandler.init();
-});
+window.addEventListener('load', () => new ScrollHandler().init());
