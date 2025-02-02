@@ -13,7 +13,7 @@ const SCROLL_LOCK_DELAY = 2800;
 const FADE_DELAY = 500;
 const PAGE_TRANSITION_DELAY = 1200;
 const BACK_TRANSITION_DELAY = 2000;
-const JOKE_SCRIPT = 'What do you call a fake noodle?\nAn impasta!\n';
+const JOKE_SCRIPT = 'What do you call a fake noodle?\nAn impasta!';
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 class TypeWriter {
@@ -21,6 +21,7 @@ class TypeWriter {
     this.textArea = typeboxElement.querySelector('.textArea');
     this.blinker = typeboxElement.querySelector('.blinker');
     this.blinkInterval = null;
+    this.textArea.style.whiteSpace = 'pre-line';
   }
 
   startBlinker() {
