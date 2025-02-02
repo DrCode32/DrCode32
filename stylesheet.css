@@ -57,9 +57,9 @@ body, #innerPage {
   overflow: hidden;
 
   top: 0;
-  height: 2.8in;
+  height: 3in;
   width: 2.5in;
-  padding: 40px;
+  padding: 35px;
 
   background-color: #20212461;
   -webkit-backdrop-filter: blur(15px);
@@ -71,8 +71,8 @@ body, #innerPage {
 
 @media screen and (min-width: 5in) {
   #intro {
-    height: 2.6in;
-    width: 3.2in;
+    height: 2.8in;
+    width: 3.3in;
   }
 }
 
@@ -153,7 +153,7 @@ body, #innerPage {
   align-items: center;
 
   height: 35px;
-  bottom: 40px;
+  bottom: 35px;
   margin: 0;
 
   transition: bottom ease 3.5s;
@@ -171,8 +171,8 @@ body, #innerPage {
 }
 
 .avator {
-  height: 100px;
-  width: 100px;
+  height: 110px;
+  width: 110px;
 
   border-radius: 50%;
   object-fit: contain;
