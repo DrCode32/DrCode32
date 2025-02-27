@@ -2,8 +2,8 @@
   "theme_color": "#202124",
   "background_color": "#202124",
   "display": "standalone",
-  "name": "Dr.Code",
-  "description": "Dr.Code's website",
+  "name": "Doctor Code",
+  "description": "Doctor Code's website",
   "icons": [
     {
       "src": "192.png",
