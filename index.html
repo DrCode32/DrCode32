@@ -5,18 +5,122 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="color-scheme" content="only light" />
 
-  <link rel="preload" as="style" href="stylesheet.css" />
-
   <title>Doctor Code</title>
   <link rel="manifest" href="mainfest.webmanifest" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" size="192x192" href="192.png" />
 
-  <link rel="stylesheet" href="stylesheet.css" />
-  <script src="main.js" defer></script>
+  <style>
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      overflow: hidden;
+      font-family: 'Google Sans', sans-serif;
+      background-color: #202124;
+      color: #ebebeb;
+    }
+
+    h1, h2, h3, h4 {
+      font-weight: lighter;
+    }
+
+    h1, h2, h3, h4, p, a {
+      text-align: center;
+    }
+
+    video, img {
+      pointer-events: none;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #background {
+      position: fixed;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 0;
+      filter: blur(20px);
+      object-fit: cover;
+      transition: filter ease 2s;
+    }
+
+    #background.playing {
+      animation: fadeInAnimation ease 2s;
+      filter: blur(0);
+    }
+
+    #intro {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+      top: 0;
+      height: 3in;
+      width: 2.5in;
+      padding: 35px;
+      background-color: #20212461;
+      -webkit-backdrop-filter: blur(15px);
+      backdrop-filter: blur(15px);
+      border-radius: 40px;
+    }
+
+    @media screen and (min-width: 5in) {
+      #intro {
+        height: 2.8in;
+        width: 3.3in;
+      }
+    }
+
+    #intro > * {
+      margin: 0 0 20px 0;
+    }
+
+    #iconList {
+      display: flex;
+      align-items: center;
+      height: 35px;
+      margin: 0;
+    }
+
+    #iconList > a {
+      display: inline-block;
+      width: 35px;
+      margin: 0 7px;
+      opacity: 50%;
+      filter: invert(100%);
+    }
+
+    #iconList > a > img {
+      width: 100%;
+      object-fit: contain;
+    }
+
+    .avatar {
+      height: 120px;
+      width: 120px;
+      border-radius: 50%;
+      object-fit: contain;
+    }
+
+    @keyframes fadeInAnimation {
+      0% {
+        filter: blur(20px);
+      }
+      100% {
+        filter: blur(0);
+      }
+    }
+  </style>
 </head>
 <body>
-  <video id="background" src="firefly_base.mp4" onplay="background.classList.add('playing')" autoplay loop muted playsinline></video>
+  <video id="background" src="firefly_base.mp4" onplay="this.classList.add('playing')" autoplay loop muted playsinline></video>
 
   <div id="intro">
     <img class="avatar" src="avatar.webp" />
